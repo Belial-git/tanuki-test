@@ -1,0 +1,421 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "tanuki test api",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/basket": {
+            "get": {
+                "tags": [
+                    "Basket"
+                ],
+                "description": "Получить корзину",
+                "operationId": "Get all basket ",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id пользователя",
+                        "explode": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseBasketDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Product"
+                ],
+                "description": "Создать корзину",
+                "operationId": "Create basket",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RequestBasketRequestDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseBasketDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/basket/{id}": {
+            "delete": {
+                "tags": [
+                    "Basket"
+                ],
+                "description": "Удалить корзину",
+                "operationId": "Delete basket",
+                "responses": {
+                    "200": {
+                        "description": "Success response"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Basket"
+                ],
+                "description": "Изменить корзину",
+                "operationId": "Update basket",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RequestBasketRequestDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RequestBasketRequestDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/order": {
+            "get": {
+                "tags": [
+                    "Order"
+                ],
+                "description": "Получить заказ",
+                "operationId": "Get order ",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id пользователя",
+                        "explode": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseOrderDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Order"
+                ],
+                "description": "Создать заказ",
+                "operationId": "Create order",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RequestOrderRequestDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseOrderDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/order/{id}": {
+            "delete": {
+                "tags": [
+                    "Order"
+                ],
+                "description": "Удалить заказ",
+                "operationId": "Delete order",
+                "responses": {
+                    "200": {
+                        "description": "Success response"
+                    }
+                }
+            }
+        },
+        "/api/v1/products": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "description": "Получить все товары",
+                "operationId": "Get all products",
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ResponseProductDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Product"
+                ],
+                "description": "Создать товар",
+                "operationId": "Create product",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RequestProductRequestDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseProductDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/products/{id}": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "description": "Получить товар",
+                "operationId": "Get product by id",
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseProductDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Product"
+                ],
+                "description": "Удалить товар",
+                "operationId": "Delete product",
+                "responses": {
+                    "200": {
+                        "description": "Success response"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Product"
+                ],
+                "description": "Изменить товар",
+                "operationId": "Update product",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RequestProductRequestDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseProductDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "RequestBasketRequestDto": {
+                "properties": {
+                    "products": {
+                        "description": "ProductDto>",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ResponseProductDto"
+                        }
+                    },
+                    "userId": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "RequestOrderRequestDto": {},
+            "RequestProductRequestDto": {
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "number",
+                        "format": "float"
+                    }
+                },
+                "type": "object"
+            },
+            "ResponseBasketDto": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "userId": {
+                        "type": "integer"
+                    },
+                    "products": {
+                        "description": "ProductDto>",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ResponseProductDto"
+                        }
+                    },
+                    "totalPrice": {
+                        "type": "number",
+                        "format": "float",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "ResponseOrderDto": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "basket": {},
+                    "status": {
+                        "type": "string"
+                    },
+                    "discount": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "finalPrice": {
+                        "type": "number",
+                        "format": "float"
+                    }
+                },
+                "type": "object"
+            },
+            "ResponseProductDto": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "isStopped": {
+                        "type": "boolean"
+                    }
+                },
+                "type": "object"
+            },
+            "UserDto": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearer_token": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Product",
+            "description": "Product"
+        },
+        {
+            "name": "Basket",
+            "description": "Basket"
+        },
+        {
+            "name": "Order",
+            "description": "Order"
+        }
+    ]
+}

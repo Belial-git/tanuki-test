@@ -1,0 +1,61 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Dto\Request;
+
+use App\Facades\Utils\PhoneNumberNormalizer;
+use Closure;
+use OpenApi\Attributes as OA;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Support\Validation\ValidationContext;
+
+#[OA\Schema(schema: 'RequestOrderRequestDto')]
+class OrderRequestDto extends Data
+{
+    public int $userId; //Так как нет регистрации и авторизации передавать любой
+    public ?int $basketId;
+    public ?string $address;
+    public ?string $phone;
+    public ?string $lastName;
+    public ?string $firstName;
+    public ?string $patronymic;
+    public ?string $promoCode;
+
+    /**
+     * @return array<string, mixed>
+     */
+    public static function rules(ValidationContext $context): array
+    {
+        if (null === $context->payload['userId']) {
+            $rules = [
+                'firstName' => ['required', 'string'],
+                'lastName' => ['required', 'string'],
+                'patronymic' => ['required', 'string'],
+                'basketId' => ['required', 'int', 'exists:baskets,id'],
+                'address' => ['required', 'string'],
+                'phone' => [
+                    'required',
+                    'string',
+                    function (string $attribute, mixed $value, Closure $fail): void {
+                        if (!is_string($value)) {
+                            $fail(__('validation.regex', ['attribute' => $attribute]));
+
+                            return;
+                        }
+                        $phone = PhoneNumberNormalizer::normalize($value);
+                        if (!$phone) {
+                            $fail(__('validation.regex', ['attribute' => $attribute]));
+                        }
+                    },
+                ],
+            ];
+        } else {
+            $rules = [
+                'userId' => ['required', 'int', 'exists:users,id'],
+            ];
+        }
+
+        return $rules;
+    }
+}
