@@ -35,9 +35,6 @@ return new class extends Migration {
             $table->foreign('basket_id')
                 ->references('id')
                 ->on('baskets');
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users');
         });
     }
 

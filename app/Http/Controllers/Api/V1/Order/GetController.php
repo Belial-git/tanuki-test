@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\V1\Order;
 
-use App\Dto\Response\BasketDto;
 use App\Dto\Response\OrderDto;
 use App\Dto\UserDto;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
-use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Attributes as OA;
 
@@ -17,7 +15,7 @@ class GetController extends Controller
 {
     #[
         OA\Get(
-            path: '/api/v1/order',
+            path: '/api/v1/orders',
             operationId: 'Get order ',
             description: 'Получить заказ',
             tags: ['Order'],

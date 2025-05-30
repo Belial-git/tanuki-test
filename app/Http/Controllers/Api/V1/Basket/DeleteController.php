@@ -13,10 +13,19 @@ class DeleteController extends Controller
 {
     #[
         OA\Delete(
-            path: '/api/v1/basket/{id}',
+            path: '/api/v1/baskets/{id}',
             operationId: 'Delete basket',
             description: 'Удалить корзину',
             tags: ['Basket'],
+            parameters: [
+                new OA\Parameter(
+                    name: 'id',
+                    description: 'ИД корзины',
+                    in: 'path',
+                    required: true,
+                    schema: new OA\Schema(type: 'integer'),
+                ),
+            ],
             responses: [
                 new OA\Response(
                     response: 200,

@@ -27,10 +27,6 @@ return new class extends Migration {
                 ->default(null)
                 ->comment('Цена за все');
             $table->timestamps();
-
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users');
         });
     }
 

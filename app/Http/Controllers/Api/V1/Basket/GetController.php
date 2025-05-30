@@ -8,7 +8,6 @@ use App\Dto\Response\BasketDto;
 use App\Dto\UserDto;
 use App\Http\Controllers\Controller;
 use App\Models\Basket;
-use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Attributes as OA;
 
@@ -16,14 +15,14 @@ class GetController extends Controller
 {
     #[
         OA\Get(
-            path: '/api/v1/basket',
-            operationId: 'Get all basket ',
+            path: '/api/v1/baskets',
+            operationId: 'Get basket',
             description: 'Получить корзину',
             tags: ['Basket'],
             parameters: [
                 new OA\Parameter(
                     name: 'id',
-                    description: 'id пользователя',
+                    description: 'id корзины',
                     in: 'query',
                     explode: true
                 ),
@@ -39,10 +38,10 @@ class GetController extends Controller
     ]
     public function __invoke(UserDto $user): JsonResponse
     {
-        $user = Basket::query()
+        $basket = Basket::query()
             ->where('id', $user->id)
             ->firstOrFail();
 
-        return response()->json(BasketDto::from($user->basket));
+        return response()->json(BasketDto::from($basket));
     }
 }
