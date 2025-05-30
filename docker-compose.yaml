@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  php:
+    container_name: "${COMPOSE_PROJECT_NAME}-php"
+    build:
+      context: ./
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html:cached
+    ports:
+      - "8000:8000"
+    restart: always
+
+  postgres:
+    container_name: "${COMPOSE_PROJECT_NAME}-postgres"
+    image: postgres:16.2-alpine
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "${HOST_PORT_POSTGRES}:5432"
+    environment:
+      - POSTGRES_DB=${POSTGRES_DATABASE}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    restart: always
+
+volumes:
+  postgres-data:

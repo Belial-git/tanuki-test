@@ -1,48 +1,37 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Traits\Attributes\CamelCaseAttributes;
+use App\Models\Traits\Relations\UserRelations;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+/**
+ * @property int         $id
+ * @property string      $firstName
+ * @property string      $lastName
+ * @property string|null $patronymic
+ * @property string|null $address
+ * @property string|null $phone
+ * @property Carbon|null $createdAt
+ * @property Carbon|null $updatedAt
+ */
+class User extends Model
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use CamelCaseAttributes;
+    use UserRelations;
+    use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'firstName',
+        'lastName',
+        'lastName',
+        'phone',
+        'address',
+        'patronymic',
     ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
 }
