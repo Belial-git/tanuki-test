@@ -7,19 +7,29 @@ namespace App\Dto\Request;
 use App\Facades\Utils\PhoneNumberNormalizer;
 use Closure;
 use OpenApi\Attributes as OA;
+use Spatie\LaravelData\Attributes\Validation\IntegerType;
+use Spatie\LaravelData\Attributes\Validation\StringType;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Support\Validation\ValidationContext;
 
 #[OA\Schema(schema: 'RequestOrderRequestDto')]
 class OrderRequestDto extends Data
 {
-    public int $userId; //Так как нет регистрации и авторизации передавать любой
+    #[OA\Property,IntegerType]
+    public ?int $userId; // Так как нет регистрации и авторизации передавать любой
+    #[OA\Property,IntegerType]
     public ?int $basketId;
+    #[OA\Property,StringType]
     public ?string $address;
+    #[OA\Property,StringType]
     public ?string $phone;
+    #[OA\Property,StringType]
     public ?string $lastName;
+    #[OA\Property,StringType]
     public ?string $firstName;
+    #[OA\Property,StringType]
     public ?string $patronymic;
+    #[OA\Property,StringType]
     public ?string $promoCode;
 
     /**
@@ -27,7 +37,7 @@ class OrderRequestDto extends Data
      */
     public static function rules(ValidationContext $context): array
     {
-        if (null === $context->payload['userId']) {
+        if (null === ($context->payload['userId'] ?? null)) {
             $rules = [
                 'firstName' => ['required', 'string'],
                 'lastName' => ['required', 'string'],

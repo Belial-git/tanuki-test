@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('product')->group(function (): void {
+Route::prefix('products')->group(function (): void {
     Route::get('/', App\Http\Controllers\Api\V1\Product\AllController::class)
         ->name('all');
     Route::get('/{id}', App\Http\Controllers\Api\V1\Product\ByIdController::class)
@@ -17,7 +17,7 @@ Route::prefix('product')->group(function (): void {
         ->name('deleteProduct');
 });
 
-Route::prefix('basket')->group(function (): void {
+Route::prefix('baskets')->group(function (): void {
     Route::get('/', App\Http\Controllers\Api\V1\Basket\GetController::class)
         ->name('basket');
     Route::post('/', App\Http\Controllers\Api\V1\Basket\CreateController::class)
@@ -28,7 +28,7 @@ Route::prefix('basket')->group(function (): void {
         ->name('deleteBasket');
 });
 
-Route::prefix('order')->group(function (): void {
+Route::prefix('orders')->group(function (): void {
     Route::get('/', App\Http\Controllers\Api\V1\Order\GetController::class)
         ->name('order');
     Route::post('/', App\Http\Controllers\Api\V1\Order\CreateController::class)

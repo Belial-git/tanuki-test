@@ -20,6 +20,15 @@ class UpdateController extends Controller
             description: 'Изменить товар',
             requestBody: new OA\RequestBody(content: new OA\JsonContent(ref: ProductRequestDto::class)),
             tags: ['Product'],
+            parameters: [
+                new OA\Parameter(
+                    name: 'id',
+                    description: 'ИД товара',
+                    in: 'path',
+                    required: true,
+                    schema: new OA\Schema(type: 'integer'),
+                ),
+            ],
             responses: [
                 new OA\Response(
                     response: 200,

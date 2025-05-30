@@ -17,6 +17,15 @@ class DeleteController extends Controller
             operationId: 'Delete product',
             description: 'Удалить товар',
             tags: ['Product'],
+            parameters: [
+                new OA\Parameter(
+                    name: 'id',
+                    description: 'ИД товара',
+                    in: 'path',
+                    required: true,
+                    schema: new OA\Schema(type: 'integer'),
+                ),
+            ],
             responses: [
                 new OA\Response(
                     response: 200,
@@ -27,7 +36,7 @@ class DeleteController extends Controller
     ]
     public function __invoke(int $id): Response
     {
-        Product::query()->first($id)->delete();
+        Product::query()->find($id)->delete();
 
         return response()->noContent();
     }

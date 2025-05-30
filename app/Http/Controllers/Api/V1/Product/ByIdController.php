@@ -18,6 +18,15 @@ class ByIdController extends Controller
             operationId: 'Get product by id',
             description: 'Получить товар',
             tags: ['Product'],
+            parameters: [
+                new OA\Parameter(
+                    name: 'id',
+                    description: 'ИД товара',
+                    in: 'path',
+                    required: true,
+                    schema: new OA\Schema(type: 'integer'),
+                ),
+            ],
             responses: [
                 new OA\Response(
                     response: 200,

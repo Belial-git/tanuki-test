@@ -2,8 +2,11 @@
 
 declare(strict_types=1);
 
+use App\Enums\DiscountType;
+use App\Models\Discount;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
@@ -27,6 +30,21 @@ return new class extends Migration {
 
             $table->timestamps();
         });
+
+        DB::table('discounts')->insert([
+            [
+                'type' => DiscountType::SUM->value,
+                'condition' => 2000,
+                'discount_sum' => 0,
+                'discount_percent' => 10,
+            ],
+            [
+                'type' => DiscountType::CODE->value,
+                'condition' => 'ILOVETANUKI',
+                'discount_sum' => 0,
+                'discount_percent' => 20,
+            ]
+        ]);
     }
 
     /**

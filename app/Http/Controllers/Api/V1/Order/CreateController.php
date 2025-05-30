@@ -16,13 +16,14 @@ use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Attributes as OA;
+use Random\RandomException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class CreateController extends Controller
 {
     #[
         OA\Post(
-            path: '/api/v1/order',
+            path: '/api/v1/orders',
             operationId: 'Create order',
             description: 'Создать заказ',
             requestBody: new OA\RequestBody(content: new OA\JsonContent(ref: OrderRequestDto::class)),
@@ -47,8 +48,6 @@ class CreateController extends Controller
             $order->phone = PhoneNumberNormalizer::normalize($user->phone);
             $order->address = $user->address;
             $order->status = StatusType::CREATED->value;
-
-            $totalPrice = $user->basket->totalPrice;
         }
 
         $basket = Basket::query()->where('id', $data->basketId)->first();
@@ -71,7 +70,8 @@ class CreateController extends Controller
         if ($totalPrice > 2000) {
             $discount = Discount::query()
                 ->where('type', DiscountType::SUM->value)
-                ->where('condition', '>=', $totalPrice)->first();
+                ->where('condition', '<=', $totalPrice)
+                ->first();
             $discountSum = ($totalPrice * $discount->discountPercent) / 100;
             $order->discount = $discountSum;
             $order->finalPrice = $totalPrice - $discountSum;
@@ -84,6 +84,9 @@ class CreateController extends Controller
             $order->discount = $discountSum;
             $order->finalPrice = $totalPrice - $discountSum;
         }
+
+        $order->userId = $data->userId ?? random_int(1000,100000);
+        $order->basketId = $data->basketId;
 
         $order->save();
 

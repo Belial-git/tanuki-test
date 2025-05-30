@@ -5,18 +5,18 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/api/v1/basket": {
+        "/api/v1/baskets": {
             "get": {
                 "tags": [
                     "Basket"
                 ],
                 "description": "Получить корзину",
-                "operationId": "Get all basket ",
+                "operationId": "Get basket",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "query",
-                        "description": "id пользователя",
+                        "description": "id корзины",
                         "explode": true
                     }
                 ],
@@ -35,7 +35,7 @@
             },
             "post": {
                 "tags": [
-                    "Product"
+                    "Basket"
                 ],
                 "description": "Создать корзину",
                 "operationId": "Create basket",
@@ -62,13 +62,24 @@
                 }
             }
         },
-        "/api/v1/basket/{id}": {
+        "/api/v1/baskets/{id}": {
             "delete": {
                 "tags": [
                     "Basket"
                 ],
                 "description": "Удалить корзину",
                 "operationId": "Delete basket",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ИД корзины",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success response"
@@ -81,6 +92,17 @@
                 ],
                 "description": "Изменить корзину",
                 "operationId": "Update basket",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Идентификатор корзины",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -104,7 +126,7 @@
                 }
             }
         },
-        "/api/v1/order": {
+        "/api/v1/orders": {
             "get": {
                 "tags": [
                     "Order"
@@ -161,13 +183,24 @@
                 }
             }
         },
-        "/api/v1/order/{id}": {
+        "/api/v1/orders/{id}": {
             "delete": {
                 "tags": [
                     "Order"
                 ],
                 "description": "Удалить заказ",
                 "operationId": "Delete order",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ИД заказа",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success response"
@@ -234,6 +267,17 @@
                 ],
                 "description": "Получить товар",
                 "operationId": "Get product by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ИД товара",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success response",
@@ -253,6 +297,17 @@
                 ],
                 "description": "Удалить товар",
                 "operationId": "Delete product",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ИД товара",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success response"
@@ -265,6 +320,17 @@
                 ],
                 "description": "Изменить товар",
                 "operationId": "Update product",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ИД товара",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -293,11 +359,10 @@
         "schemas": {
             "RequestBasketRequestDto": {
                 "properties": {
-                    "products": {
-                        "description": "ProductDto>",
+                    "productsIds": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/ResponseProductDto"
+                            "type": "integer"
                         }
                     },
                     "userId": {
@@ -306,7 +371,43 @@
                 },
                 "type": "object"
             },
-            "RequestOrderRequestDto": {},
+            "RequestOrderRequestDto": {
+                "properties": {
+                    "userId": {
+                        "type": "integer",
+                        "nullable": true
+                    },
+                    "basketId": {
+                        "type": "integer",
+                        "nullable": true
+                    },
+                    "address": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "phone": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "patronymic": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "promoCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
             "RequestProductRequestDto": {
                 "properties": {
                     "title": {
@@ -406,16 +507,16 @@
     },
     "tags": [
         {
-            "name": "Product",
-            "description": "Product"
-        },
-        {
             "name": "Basket",
             "description": "Basket"
         },
         {
             "name": "Order",
             "description": "Order"
+        },
+        {
+            "name": "Product",
+            "description": "Product"
         }
     ]
 }
